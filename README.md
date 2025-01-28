@@ -74,6 +74,7 @@ To verify that the downloaded .zip matches this release:
 2. Compare it with the expected checksum provided below:
 
    `a5011a5d574ff62c6e70e158e389d58c97ed7e5b80704eb7a8a590ca65959734`
+   
 This ensures that the executable has not been tampered with.
 
 ---
