@@ -67,13 +67,13 @@ Each prompt can be customized with the following attributes:
 ---
 
 ## Verifying Intergrity
-To verify that the downloaded executable matches this release:
-1. Generate a SHA256 checksum for your downloaded Promptly.exe file:
+To verify that the downloaded .zip matches this release:
+1. Generate a SHA256 checksum for your downloaded Promptly.zip file:
 
-   `certutil -hashfile Promptly.exe SHA256`
+   `certutil -hashfile Promptly.zip SHA256`
 2. Compare it with the expected checksum provided below:
 
-   `f4e94452385e514325fe7ee6c91673a91c5fb44bb30cc7b9c0b8c588f0399faf`
+   `a5011a5d574ff62c6e70e158e389d58c97ed7e5b80704eb7a8a590ca65959734`
 This ensures that the executable has not been tampered with.
 
 ---
