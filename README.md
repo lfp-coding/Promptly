@@ -82,7 +82,7 @@ To verify that the downloaded .zip matches this release:
    `certutil -hashfile Promptly.zip SHA256`
 2. Compare it with the expected checksum provided below:
 
-   `e083579ad28683567db92ee2d3237aa7c6f4546f6e46a80cf9570418e3e73fdb`
+   `6ac0c28e60dd9618a65d229ba45680fc8ff2a46f8bc739d380596d4722fe170b`
    
 This ensures that the executable has not been tampered with.
 
