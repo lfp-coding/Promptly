@@ -1,3 +1,5 @@
+import time
+import ctypes
 from threading import Lock, Thread
 from pynput import keyboard, mouse
 from queue import Queue
@@ -53,7 +55,10 @@ class HotkeyManager:
         self._keyboard_listener = None
         self._mouse_listener = None
         self._hotkey_queue = Queue()
-        
+        self._monitor_thread = None
+
+        self._last_activity_time = None
+
         self._log_manager.log_info('HotkeyManager initialized')
     
     def _queue_handler(self):
@@ -72,6 +77,7 @@ class HotkeyManager:
         Handles key press events
         """
         with self._lock:
+            self._last_activity_time = time.time()
             key_str = self._helper.key_to_string(key)
 
             if key_str in self._modifier_keys:
@@ -114,7 +120,7 @@ class HotkeyManager:
         """
         with self._lock:
             button_str = f"mouse_{button.name}"
-
+            self._last_activity_time = time.time()
             if pressed:
                 # Add mouse button to current and persistent non-modifiers
                 self._cur_non_mod.add(button_str)
@@ -175,6 +181,11 @@ class HotkeyManager:
         """
         Start the keyboard and mouse listeners
         """
+        self._last_activity_time = time.time()
+        self._cur_mod.clear()
+        self._non_mod.clear()
+        self._mod.clear()
+        self._cur_non_mod.clear()
         if not (self._keyboard_listener or self._mouse_listener):
             # Initialize and start keyboard listener
             self._keyboard_listener = keyboard.Listener(
@@ -192,6 +203,10 @@ class HotkeyManager:
         self._queue_thread.start()
         self._keyboard_listener.start()
         self._mouse_listener.start()
+
+        if not self._monitor_thread or not self._monitor_thread.is_alive():
+            self._monitor_thread = Thread(target=self._monitor_listener_health, daemon=True)
+            self._monitor_thread.start()
 
     def stop_listeners(self):
         """
@@ -224,13 +239,32 @@ class HotkeyManager:
             self._hotkey_queue.put("STOP")
             self._queue_thread.join()
 
-    def _open_prompt_selector(self):
+    def _monitor_listener_health(self):
         """
-        Open prompt selector window
+        Periodically checks if the listener threads are still alive. If not,
+        it restarts them. This approach recreates listener threads if they
+        die after a PC lock event.
         """
-        from src.ui.prompt_selector_window import PromptSelectorWindow
-        window = PromptSelectorWindow()
-        window.show()
+        was_locked = False
+        while True:
+            time.sleep(3)  # Adjust interval as needed
+            if not self._helper.get_hotkey_listener_status():
+                return
+
+            is_locked = ctypes.windll.user32.GetForegroundWindow() == 0
+            if is_locked or was_locked or self._last_activity_time - time.time() > 30:
+                with self._lock:
+                    self._cur_mod.clear()
+                    self._non_mod.clear()
+                    self._mod.clear()
+                    self._cur_non_mod.clear()
+
+            if (not self._keyboard_listener or not self._keyboard_listener.is_alive()) \
+                    or (not self._mouse_listener or not self._mouse_listener.is_alive()):
+                self._log_manager.log_info("Listener thread seems to have stopped. Restarting.")
+                self.start_listeners()
+
+            was_locked = is_locked
     
     def load_hotkeys(self):
         """

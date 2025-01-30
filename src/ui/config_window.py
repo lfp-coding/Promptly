@@ -42,9 +42,6 @@ class ConfigWindow(QMainWindow):
             self._restore_window_geometry()
             self._adjust_font_sizes()
 
-            # icon_path = get_assets_path() / 'Promptly.ico'
-            # self.setWindowIcon(QIcon(str(icon_path)))
-            
             # Track changes
             self._config_new = copy.deepcopy(self._config_manager.get_value('config'))
         except Exception as e:

@@ -11,7 +11,11 @@ Additionally, Promptly includes a **prompt selector menu** for quick access to a
 - **Hotkey-Triggered Prompts**: Assign hotkeys to predefined prompts for quick execution.
 - **Prompt Selector Menu**: A quick-access menu to choose from all available prompts.
 - **Chat Window**: Use as a standalone chat interface or debug prompt responses.
-- **Customizable Prompts**: Define prompts with the following settings:
+- **Tray Icon**: Provides easy access to
+   - Open the chat window
+   - Access settings
+	- Quit the application
+- **Customizable Prompts**: Define prompts with the following settings
   - **Clear History**: Optionally clear chat history before executing a prompt.
   - **Additional Input Field**: Add dynamic context to prompts using `{input}` placeholders.
   - **Output Options**: Choose to display responses in the chat window or paste them directly into the active application.
@@ -30,7 +34,8 @@ Additionally, Promptly includes a **prompt selector menu** for quick access to a
    - The Gemini API key will be securely stored in the Windows Credential Manager.
 3. The extracted folder will include:
    - `Promptly.exe`: The main executable file.
-   - `assets/`: A directory containing required assets for Promptly.
+   - `LICENSE`: The license file specifying usage rights and permissions for the software.
+   - `README.txt`: Documentation explaining how to use Promptly, including installation and usage instructions.
 4. On first launch:
    - You will be prompted to enter your Gemini API key.
    - Promptly will create additional folders (e.g. configuration and logs) in its directory.
@@ -52,6 +57,10 @@ Additionally, Promptly includes a **prompt selector menu** for quick access to a
 4. Access additional features:
    - Open the chat window for interactive conversations or debugging.
    - Use the prompt selector menu for quick access to all configured prompts.
+5. When running, Promptly creates a tray icon in your system's notification area. The tray icon provides quick access to essential functions:
+	- Open the chat window for interactive conversations or debugging prompts.
+	- Access settings to configure your prompts and hotkeys.
+	- Quit Promptly from the tray icon menu.
 
 ---
 
@@ -73,7 +82,7 @@ To verify that the downloaded .zip matches this release:
    `certutil -hashfile Promptly.zip SHA256`
 2. Compare it with the expected checksum provided below:
 
-   `a5011a5d574ff62c6e70e158e389d58c97ed7e5b80704eb7a8a590ca65959734`
+   `e083579ad28683567db92ee2d3237aa7c6f4546f6e46a80cf9570418e3e73fdb`
    
 This ensures that the executable has not been tampered with.
 

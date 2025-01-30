@@ -1,0 +1,9 @@
+cryptography==44.0.0
+dataclass_wizard==0.35.0
+keyring==25.5.0
+protobuf==5.29.3
+psutil==6.1.1
+pyautogui==0.9.54
+pynput==1.7.7
+pyperclip==1.9.0
+PyQt5==5.15.11

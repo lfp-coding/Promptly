@@ -147,7 +147,7 @@ class ConfigManager:
         prompts = {
                 "Prompt": Prompt(
                     description="Procceses selectect text if selected, processess prompt otherwise",
-                    template="{input}\n\n\"{text}\"\n\n Reply with only with the response, no comments.",
+                    template="{input}\n\n\"{text}\"\n\n Reply only with the response, no comments. Keep the original language.",
                     hotkey="",
                     hotkey_enabled=False,
                     behavior=PromptBehavior(
@@ -173,7 +173,7 @@ class ConfigManager:
                 ),
                 "More formal": Prompt(
                     description="Rewrite the selected text in a more formal tone",
-                    template="Rewrite the following text using a more formal tone. Reply only with the new version:\n\nText:\n\n{text}",
+                    template="Rewrite the following text using a more formal tone. Keep the original language. Reply only with the new version:\n\nText:\n\n{text}",
                     hotkey="",
                     hotkey_enabled=False,
                     behavior=PromptBehavior(
@@ -186,7 +186,7 @@ class ConfigManager:
                 ),                
                 "Summarize Text": Prompt(
                     description="Creates a concise summary of the selected text",
-                    template="Summarize the following text in a concise way:\n\n{text}",
+                    template="Summarize the following text in a concise way. Keep the original language of the text:\n\n{text}",
                     hotkey="",
                     hotkey_enabled=False,
                     behavior=PromptBehavior(

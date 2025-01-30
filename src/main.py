@@ -398,6 +398,7 @@ class MainProcess:
                 if self._prompt_selector.activeAction():
                     action = self._prompt_selector.activeAction().text() 
             self._stop_listeners()
+            self._prompt_selector.hide()
             self._prompt_selector.deleteLater()
             if action is not None:
                 self._signal_helper.process_text_signal.emit(action)

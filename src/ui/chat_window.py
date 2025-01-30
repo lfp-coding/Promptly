@@ -71,6 +71,7 @@ class ChatWindow(QMainWindow):
             self._chat_display.setVerticalScrollBar(QScrollBar())
             self._scrollbar = self._chat_display.verticalScrollBar()
             self._splitter.addWidget(self._chat_display)
+            self._markdown_buffer = ""
 
             # Input area
             input_area = QWidget()
@@ -304,7 +305,6 @@ class ChatWindow(QMainWindow):
         """
         Clean up the thread instance after it finishes execution
         """
-        self._chat_display.insertPlainText(f"\n\n")
         self._chat_display.verticalScrollBar().actionTriggered.disconnect(self._on_user_scroll)   
         
         # Hide progress bar and re-enable buttons
@@ -322,6 +322,7 @@ class ChatWindow(QMainWindow):
         Check for user scroll
         """
         self._user_scrolled = True
+        self._desired_scroll_value = self._scrollbar.value()
         self._user_scrolled_to_bottom = self._scrollbar.value() == self._scrollbar.maximum()
 
     def _add_message_to_display(self, message: str, sender: Optional[str] = 'AI'):
@@ -335,20 +336,50 @@ class ChatWindow(QMainWindow):
         """
         self._chat_display.moveCursor(QTextCursor.End)
         if sender == 'You':
+            self._markdown_buffer = ""
+            current_content = self._chat_display.toMarkdown()
             self._last_user_block_number = self._chat_display.textCursor().blockNumber()
-            self._chat_display.insertPlainText(f"{sender}:\n{message}\n\n")
-            self._last_loaded_index = self._last_loaded_index + 1
-        else:
-            if not self._first_chunk_received:            
-                self._chat_display.insertPlainText(f"{sender}:\n{message}")
-                self._last_loaded_index = self._last_loaded_index + 1
-                self._first_chunk_received = True
+            if current_content == "":
+                self._chat_display.setMarkdown(current_content + f"**{sender}**:\n\n{message}"+"\n```markdown\n\n```\n")
+                # self._chat_display.insertPlainText(f"\n\n\n")
+                current_content = self._chat_display.toMarkdown()
+                self._chat_display.setMarkdown(current_content + f"**Promptly**:\n\n")
             else:
-                self._chat_display.insertPlainText(f"{message}")
+                self._chat_display.insertPlainText(f"\n\n\n")
+                current_content = self._chat_display.toMarkdown()
+                self._chat_display.setMarkdown(current_content + "\n```markdown\n\n```\n" + f"**{sender}**:\n\n{message}"+"\n```markdown\n\n```\n")
+                # self._chat_display.insertPlainText(f"\n\n\n")
+                current_content = self._chat_display.toMarkdown()
+                self._chat_display.setMarkdown(current_content + f"**Promptly**:\n\n")
+            # if current_content == "":
+            #     self._chat_display.setMarkdown(current_content + f"**{sender}**:\n\n{message}"+" "+"\n\n---"+" \n\n**AI**:\n\n")
+            # else:
+            #     self._chat_display.setMarkdown(
+            #         current_content + f"\n\n---\n\n**{sender}**:\n\n{message}" + " " + "\n\n---" + " \n\n**AI**:\n\n")
+
+            # self._chat_display.insertPlainText(f"**{sender}**:\n{message}\n\n")
+            self._last_loaded_index = self._last_loaded_index + 2
+            # self._chat_display.insertPlainText(f"**AI**:\n")
+            self._current_content = self._chat_display.toMarkdown()
+        else:
+            # if not self._first_chunk_received:
+            #     self._chat_display.insertPlainText(f"{sender}:\n{message}")
+            #     self._last_loaded_index = self._last_loaded_index + 1
+            #     self._first_chunk_received = True
+            # else:
+            self._markdown_buffer += message
+            # current_content = self._chat_display.toMarkdown()
+            self._chat_display.setMarkdown(self._current_content + self._markdown_buffer)  # Append new content
+            # self._chat_display.insertPlainText(f"{message}")
+            # self._markdown_buffer += message
+        # self._chat_display.moveCursor(QTextCursor.End)
+
         if not self._user_scrolled:
             self._scroll_to_last_user_message()
         elif self._user_scrolled_to_bottom:
             self._chat_display.moveCursor(QTextCursor.End)
+        else:
+            self._scrollbar.setValue(self._desired_scroll_value)
 
     def scroll_to_bottom(self):
         self._chat_display.moveCursor(QTextCursor.End)
