@@ -37,7 +37,7 @@ Additionally, Promptly includes a **prompt selector menu** for quick access to a
    - `LICENSE`: The license file specifying usage rights and permissions for the software.
    - `README.txt`: Documentation explaining how to use Promptly, including installation and usage instructions.
 4. On first launch:
-   - You will be prompted to enter your Gemini API key.
+   - You will be prompted to enter your Gemini API key. A link will be provided to guide you to the Gemini API key registration page.
    - Promptly will create additional folders (e.g. configuration and logs) in its directory.
    - Shortcuts will be created for:
      - Opening the chat window
@@ -82,7 +82,7 @@ To verify that the downloaded .zip matches this release:
    `certutil -hashfile Promptly.zip SHA256`
 2. Compare it with the expected checksum provided below:
 
-   `6ac0c28e60dd9618a65d229ba45680fc8ff2a46f8bc739d380596d4722fe170b`
+   `46a8adad63ce053fe987bcbf16786db2237cf40cf2b685c2db5880a7b3f90e99`
    
 This ensures that the executable has not been tampered with.
 
