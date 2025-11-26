@@ -1,0 +1,10 @@
+[
+    {
+        "role": "user",
+        "content": "test"
+    },
+    {
+        "role": "assistant",
+        "content": "Understood. You just said \"test\". \n\nIs there anything else I can help you with? Do you want me to run a specific test, answer a question, or perform a task? Just let me know.\n"
+    }
+]

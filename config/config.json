@@ -1,0 +1,112 @@
+{
+    "generalConfig": {
+        "autostart": false,
+        "apiProvider": "gemini"
+    },
+    "apiClients": {
+        "gemini": {
+            "apiKeyEncrypted": "gAAAAABpJ1CJzyhKS8OvEqFdNH3CNxKSlxv7OMaOU49TIiCKfRn8QYbUct_q-AJAx3_DJytYuRf0Q0ER8PI6L-ZxKjKCQrg15TS7ghWAH0cGdulJfiDOOdbPfSu1vyfQ_TRaMhvqEYph",
+            "model": "gemini-2.0-flash",
+            "temperature": null,
+            "maxTokens": null,
+            "timeout": null
+        }
+    },
+    "prompts": {
+        "Prompt": {
+            "description": "Procceses selectect text if selected, processess prompt otherwise",
+            "template": "{input}\n\n\"{text}\"\n\n Reply only with the response, no comments. Keep the original language.",
+            "hotkey": "",
+            "hotkeyEnabled": false,
+            "behavior": {
+                "clearHistory": true,
+                "textSelected": "process",
+                "noTextSelected": "process",
+                "additionalInput": true,
+                "outputOnSeparateWindow": false
+            }
+        },
+        "Proofread": {
+            "description": "Proofreads the selected text",
+            "template": "Proofread the following text, while preserving the original language and intend. Reply only with the corrected version nothing additionally, even if it just one word.\n\nText: {text}",
+            "hotkey": "ctrl alt X",
+            "hotkeyEnabled": true,
+            "behavior": {
+                "clearHistory": true,
+                "textSelected": "process",
+                "noTextSelected": "select_all",
+                "additionalInput": false,
+                "outputOnSeparateWindow": false
+            }
+        },
+        "More formal": {
+            "description": "Rewrite the selected text in a more formal tone",
+            "template": "Rewrite the following text using a more formal tone. Keep the original language. Reply only with the new version:\n\nText:\n\n{text}",
+            "hotkey": "",
+            "hotkeyEnabled": false,
+            "behavior": {
+                "clearHistory": true,
+                "textSelected": "process",
+                "noTextSelected": "select_all",
+                "additionalInput": false,
+                "outputOnSeparateWindow": false
+            }
+        },
+        "Summarize Text": {
+            "description": "Creates a concise summary of the selected text",
+            "template": "Summarize the following text in a concise way. Keep the original language of the text:\n\n{text}",
+            "hotkey": "",
+            "hotkeyEnabled": false,
+            "behavior": {
+                "clearHistory": true,
+                "textSelected": "process",
+                "noTextSelected": "skip",
+                "additionalInput": false,
+                "outputOnSeparateWindow": true
+            }
+        },
+        "Translate to English": {
+            "description": "Translates text into English",
+            "template": "Translate the following text into Englisch. Just reply with the translated text or word.\n\nText: {text}",
+            "hotkey": "",
+            "hotkeyEnabled": false,
+            "behavior": {
+                "clearHistory": true,
+                "textSelected": "process",
+                "noTextSelected": "skip",
+                "additionalInput": false,
+                "outputOnSeparateWindow": true
+            }
+        },
+        "Translater": {
+            "description": "Translates text into specified language",
+            "template": "Translate the following text into {input}. Just reply with the translated text or word.\n\nText: {text}",
+            "hotkey": "",
+            "hotkeyEnabled": false,
+            "behavior": {
+                "clearHistory": true,
+                "textSelected": "process",
+                "noTextSelected": "skip",
+                "additionalInput": true,
+                "outputOnSeparateWindow": false
+            }
+        }
+    },
+    "systemHotkeys": {
+        "settings_window": {
+            "hotkey": "",
+            "hotkeyEnabled": false,
+            "callback": "open_settings"
+        },
+        "chat_window": {
+            "hotkey": "",
+            "hotkeyEnabled": false,
+            "callback": "open_chat"
+        },
+        "prompt_selector": {
+            "hotkey": "ctrl alt Y",
+            "hotkeyEnabled": true,
+            "callback": "open_context_menu"
+        }
+    }
+}

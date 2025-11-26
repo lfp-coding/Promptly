@@ -1,8 +1,9 @@
-from typing import Optional, List
-import google.generativeai as genai
-
 import sys
 from pathlib import Path
+from typing import List, Optional
+
+import google.generativeai as genai
+
 root_dir = Path(__file__).parent.parent.parent
 sys.path.append(str(root_dir))
 from src.clients.base_api_client import BaseAPIClient
@@ -35,14 +36,14 @@ class GeminiClient(BaseAPIClient):
                 return False
             genai.configure(api_key=api_key)
 
-            test_model = genai.GenerativeModel('gemini-1.5-flash')
+            test_model = genai.GenerativeModel("gemini-2.0-flash")
             test_model.generate_content(["Test"])
             return True
-        except Exception as e:
+        except Exception:
             return False
 
     def __init__(self):
-        if hasattr(self, '_initialized'):
+        if hasattr(self, "_initialized"):
             return
         super().__init__()
         self._initialized = True
@@ -73,16 +74,20 @@ class GeminiClient(BaseAPIClient):
             genai.ChatSession: The initialized chat session.
         """
         try:
-            api_clients = self._config_manager.get_value('api_clients')
-            stored_model = api_clients['gemini'].model
+            api_clients = self._config_manager.get_value("api_clients")
+            stored_model = api_clients["gemini"].model
             model = genai.GenerativeModel(stored_model)
             self._chat_session = model.start_chat()
-            self._log_manager.log_info(f"Chat session started with model: {stored_model}")
+            self._log_manager.log_info(
+                f"Chat session started with model: {stored_model}"
+            )
         except Exception as e:
             self._log_manager.log_error("Failed to start chat session.", error=e)
             raise
 
-    def send_request_non_stream(self, prompt: str, retry_count: int = 0) -> Optional[str]:
+    def send_request_non_stream(
+        self, prompt: str, retry_count: int = 0
+    ) -> Optional[str]:
         """
         Send a request to the Gemini API.
 
@@ -161,7 +166,7 @@ class GeminiClient(BaseAPIClient):
         """
         try:
             models = genai.list_models()
-            model_names = [model.name.split('/')[-1] for model in models]
+            model_names = [model.name.split("/")[-1] for model in models]
 
             return sorted(model_names)
         except Exception as e:
