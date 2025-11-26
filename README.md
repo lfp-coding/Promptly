@@ -1,6 +1,7 @@
 # Promptly
 
 ## Overview
+
 **Promptly** is a productivity tool designed to streamline interactions with Large Language Models (LLMs). It allows users to quickly execute frequently used prompts via hotkeys, directly from any text-based application (e.g., Word, Outlook). The tool runs in the background, listens for configured hotkeys, and automates the process of copying selected text, applying a predefined prompt, sending it to the LLM through the Gemini API, and pasting the response back into the active application.
 
 Additionally, Promptly includes a **prompt selector menu** for quick access to all prompts and a **chat window** for interactive conversations or debugging prompt behavior.
@@ -8,13 +9,14 @@ Additionally, Promptly includes a **prompt selector menu** for quick access to a
 ---
 
 ## Features
+
 - **Hotkey-Triggered Prompts**: Assign hotkeys to predefined prompts for quick execution.
 - **Prompt Selector Menu**: A quick-access menu to choose from all available prompts.
 - **Chat Window**: Use as a standalone chat interface or debug prompt responses.
 - **Tray Icon**: Provides easy access to
-   - Open the chat window
-   - Access settings
-	- Quit the application
+  - Open the chat window
+  - Access settings
+  - Quit the application
 - **Customizable Prompts**: Define prompts with the following settings
   - **Clear History**: Optionally clear chat history before executing a prompt.
   - **Additional Input Field**: Add dynamic context to prompts using `{input}` placeholders.
@@ -28,6 +30,7 @@ Additionally, Promptly includes a **prompt selector menu** for quick access to a
 ---
 
 ## Installation
+
 1. Download the `.zip` file containing Promptly from the GitHub repository.
 2. Extract the `.zip` file into your user folder (e.g. C:\Users\<YourUsername>\Promptly). This is important because:
    - Administrator rights are not required when placed in the user folder.
@@ -47,7 +50,8 @@ Additionally, Promptly includes a **prompt selector menu** for quick access to a
 ---
 
 ## Usage
-1. Launch Promptly by running `Promptly.exe` file or one of the shortcuts. 
+
+1. Launch Promptly by running `Promptly.exe` file or one of the shortcuts.
 2. Configure your prompts and hotkeys in the settings menu:
    - Define a prompt template using `{text}` for selected text and `{input}` for additional input fields.
    - Assign hotkeys for each prompt.
@@ -58,14 +62,16 @@ Additionally, Promptly includes a **prompt selector menu** for quick access to a
    - Open the chat window for interactive conversations or debugging.
    - Use the prompt selector menu for quick access to all configured prompts.
 5. When running, Promptly creates a tray icon in your system's notification area. The tray icon provides quick access to essential functions:
-	- Open the chat window for interactive conversations or debugging prompts.
-	- Access settings to configure your prompts and hotkeys.
-	- Quit Promptly from the tray icon menu.
+   - Open the chat window for interactive conversations or debugging prompts.
+   - Access settings to configure your prompts and hotkeys.
+   - Quit Promptly from the tray icon menu.
 
 ---
 
 ## Configuration
+
 Each prompt can be customized with the following attributes:
+
 - **Clear History**: Clears previous interactions before sending the new prompt.
 - **Additional Input Field**: Allows dynamic input by replacing `{input}` in the template with user-provided context.
 - **Output Options**: Choose between direct pasting or displaying results in a separate chat window.
@@ -75,40 +81,51 @@ Each prompt can be customized with the following attributes:
 
 ---
 
-## Verifying Intergrity
+## Verifying Integrity
+
+Please note that the downloaded `.zip` file currently does not match the code in the repository. As a result, the application may not function as intended. Ensure that you are using the correct version of the files to avoid any issues.
+
 To verify that the downloaded .zip matches this release:
+
 1. Generate a SHA256 checksum for your downloaded Promptly.zip file:
 
    `certutil -hashfile Promptly.zip SHA256`
+
 2. Compare it with the expected checksum provided below:
 
    `46a8adad63ce053fe987bcbf16786db2237cf40cf2b685c2db5880a7b3f90e99`
-   
+
 This ensures that the executable has not been tampered with.
 
 ---
 
 ## Building from Source
+
 To build Promptly from source:
-   1. Clone this repository:
-      ```
-      git clone https://github.com/lfp-coding/Promptly.git
-      cd Promptly
-      ```
-   2. Install Python 3.x and required dependencies:
 
-      `pip install -r requirements.txt`
-   3. Use PyInstaller to create an executable:
+1.  Clone this repository:
+    ```
+    git clone https://github.com/lfp-coding/Promptly.git
+    cd Promptly
+    ```
+2.  Install Python 3.x and required dependencies:
 
-      `pyinstaller --onefile --icon=assets\Promptly.ico --noconsole --name=Promptly.exe src\main.py`
-   4. The resulting Promptly.exe will be located in the dist/ folder.
+    `pip install -r requirements.txt`
+
+3.  Use PyInstaller to create an executable:
+
+    `pyinstaller --onefile --icon=assets\Promptly.ico --noconsole --name=Promptly.exe src\main.py`
+
+4.  The resulting Promptly.exe will be located in the dist/ folder.
 
 ---
 
 ## License
+
 This project is licensed under the MIT License. See `LICENSE` file for details.
 
 ---
 
 ## Contributions
+
 This is currently a private project and not open for contributions. If you have suggestions or feedback, feel free to open an issue on GitHub.
